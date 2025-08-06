@@ -4,7 +4,7 @@
 char *searchChar(char *n, char c) {
     for(int i = 0; i < strlen(n); i++) {
         if(n[i] == c) {
-            return &n[i];
+            return &n[i]+1;
         } 
     }
 
