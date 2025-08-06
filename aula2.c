@@ -1,27 +1,31 @@
 #include <stdio.h>
+#include <string.h>
 
-int returnEnd(char *n, char *c) {
-    for(int i = 0; n[i] != '\0'; i++) {
-        if(n[i] == *c) {
-            printf("Caractere '%c' encontrado na posicao %d.\n", *c, i);
-            return 1;
+char *searchChar(char *n, char c) {
+    for(int i = 0; i < strlen(n); i++) {
+        if(n[i] == c) {
+            return &n[i];
         } 
     }
 
-    printf("Caractere '%c' nao encontrado na string.\n", *c);
-    return 0;
+    return NULL;
 }
 
 int main() {
-    char n[100];
-    char c;
+    char n[100], c, *result;
 
     printf("Digite uma string: ");
     fgets(n, sizeof(n), stdin);
     printf("Digite um caractere: ");
     scanf(" %c", &c);
 
-    returnEnd(n, &c);
+    result = searchChar(n, c);
+
+    if(result != NULL) {
+        printf("Caractere '%c' encontrado: ': %s\n", *result, result);
+    } else {
+        printf("Caractere '%c' nao encontrado na string.\n", c);
+    }
 
     return 0;
 }
