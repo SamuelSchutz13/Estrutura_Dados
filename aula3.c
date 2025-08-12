@@ -15,6 +15,8 @@ void createRegister(REGISTRO *reg, int *n) {
         printf("Informe a largura: ");
         scanf("%f", &reg[*n].largura);
         (*n)++;
+
+        printf("Registro criado com sucesso!\n");   
     } else {
        printf("Limite de registros atingido.\n");
     }
