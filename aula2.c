@@ -12,17 +12,15 @@ char *searchChar(char *n, char c) {
 }
 
 int main() {
-    char n[100], c, *result;
+    char n[100], c;
 
     printf("Digite uma string: ");
     fgets(n, sizeof(n), stdin);
     printf("Digite um caractere: ");
     scanf(" %c", &c);
 
-    result = searchChar(n, c);
-
-    if(result != NULL) {
-        printf("Caractere '%c' encontrado: ': %s\n", *result, result);
+    if(searchChar(n, c) !=  NULL) {
+        printf("Caractere '%c' encontrado: ': %s\n", c, searchChar(n, c));
     } else {
         printf("Caractere '%c' nao encontrado na string.\n", c);
     }
