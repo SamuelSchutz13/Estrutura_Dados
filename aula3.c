@@ -75,6 +75,7 @@ int main() {
     int opt;
 
     do {
+        printf("-------------------------------------------\n");
         printf("1 - Inserir registro\n");
         printf("2 - Editar registro\n");
         printf("3 - Excluir registro\n");
