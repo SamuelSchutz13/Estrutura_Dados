@@ -75,14 +75,13 @@ int main() {
     int opt;
 
     do {
-        system("cls");
         printf("1 - Inserir registro\n");
         printf("2 - Editar registro\n");
         printf("3 - Excluir registro\n");
         printf("4 - Listar registros\n");
         printf("5 - Sair\n");
         printf("-------------------------------------------\n");
-        printf("Informe um número para a opcao: ");
+        printf("Informe um numero para a opcao: ");
         scanf("%d", &opt);
         printf("-------------------------------------------\n");
 
