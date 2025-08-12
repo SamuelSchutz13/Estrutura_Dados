@@ -1,13 +1,15 @@
 #include <stdio.h>
 
+#define MAX_REG 10
+
 typedef struct {
     float altura;
     float profundidade;
     float largura;
 } REGISTRO;
     
-void createRegister(REGISTRO *reg, int *n) {
-   if(*n < 10) {
+void createRegister(REGISTRO reg[], int *n) {
+   if(*n < MAX_REG) {
         printf("Informe a altura: ");
         scanf("%f", &reg[*n].altura);
         printf("Informe a profundidade: ");
@@ -22,7 +24,7 @@ void createRegister(REGISTRO *reg, int *n) {
     }
 }
 
-void editRegister(REGISTRO *reg, int *n) {
+void editRegister(REGISTRO reg[], int *n) {
     if(*n > 0) {
         int index;
         printf("Informe o indice do registro a ser editado (0 a %d): ", *n - 1);
@@ -44,7 +46,7 @@ void editRegister(REGISTRO *reg, int *n) {
     }
 }
 
-void deleteRegister(REGISTRO *reg, int *n) {
+void deleteRegister(REGISTRO reg[], int *n) {
     if(*n > 0) {
         int index;
         printf("Informe o indice do registro a ser excluido (0 a %d): ", *n - 1);
@@ -64,7 +66,7 @@ void deleteRegister(REGISTRO *reg, int *n) {
     }
 }
 
-void listRegisters(REGISTRO *reg, int *n) {
+void listRegisters(REGISTRO reg[], int *n) {
     for(int i = 0; i < *n; i++) {
         printf("Registro %d: Altura = %.2f, Profundidade = %.2f, Largura = %.2f\n", i+1, reg[i].altura, reg[i].profundidade, reg[i].largura);
     }
@@ -72,7 +74,7 @@ void listRegisters(REGISTRO *reg, int *n) {
 }
 
 int main() {
-    REGISTRO reg[10];
+    REGISTRO reg[MAX_REG];
     int n = 0;
     int opt;
 
