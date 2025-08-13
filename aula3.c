@@ -78,7 +78,7 @@ int main() {
     int n = 0;
     int opt;
 
-    do {
+    while(opt != 5) {
         printf("-------------------------------------------\n");
         printf("1 - Inserir registro\n");
         printf("2 - Editar registro\n");
@@ -110,7 +110,7 @@ int main() {
                 printf("Opcao invalida\n");
                 break;
         }
-    } while(opt != 5);
+    };
 
     return 0;
 }
