@@ -7,25 +7,25 @@ typedef struct {
     float largura;
 } REGISTRO;
 
-void createRegister(REGISTRO reg[], int length) {
-    reg = malloc((length + 1) * sizeof(REGISTRO));
+void createRegister(REGISTRO **reg, int *length) {
+    *reg = realloc(*reg, (*length + 1) * sizeof(REGISTRO));
 
-    if(!reg) {
-        printf("Erro alocar memoria");
+    if(!*reg) {
+        printf("Erro ao alocar memoria\n");
         return;
     }
 
-    for(int i = 0; i < length; i++) {
-        printf("Altura: ");
-        scanf("%f", &reg[i].altura);
-        printf("Profundidade: ");
-        scanf("%f", &reg[i].profundidade);
-        printf("Largura: ");
-        scanf("%f", &reg[i].largura);
-    }
+    printf("Altura: ");
+    scanf("%f", &(*reg)[*length].altura);
+    printf("Profundidade: ");
+    scanf("%f", &(*reg)[*length].profundidade);
+    printf("Largura: ");
+    scanf("%f", &(*reg)[*length].largura);
+
+    (*length)++;
 }
 
-void editRegister(REGISTRO reg[], int *length) {
+void editRegister(REGISTRO **reg, int *length) {
     int i;
     printf("Indice do registro a ser editado: ");
     scanf("%d", &i);
@@ -37,14 +37,14 @@ void editRegister(REGISTRO reg[], int *length) {
 
     printf("Entre com os novos valores para o registro %d\n", i);
     printf("Altura: ");
-    scanf("%f", &reg[i-1].altura);
+    scanf("%f", &(*reg)[i-1].altura);
     printf("Profundidade: ");
-    scanf("%f", &reg[i-1].profundidade);
+    scanf("%f", &(*reg)[i-1].profundidade);
     printf("Largura: ");
-    scanf("%f", &reg[i-1].largura);
+    scanf("%f", &(*reg)[i-1].largura);
 }
 
-void deleteRegister(REGISTRO reg[], int *length) {
+void deleteRegister(REGISTRO **reg, int *length) {
     int i;
     printf("Indice do registro a ser excluido: ");
     scanf("%d", &i);
@@ -55,7 +55,7 @@ void deleteRegister(REGISTRO reg[], int *length) {
     }
 
     for(int j = i-1; j < *length-1; j++) {
-        reg[j] = reg[j+1];
+        (*reg)[j] = (*reg)[j+1];
     }
 
     (*length)--;
