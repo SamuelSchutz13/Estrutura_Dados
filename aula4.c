@@ -61,9 +61,9 @@ void deleteRegister(REGISTRO **reg, int *length) {
     (*length)--;
 }
 
-void listRegisters(REGISTRO reg[], int *length) {
+void listRegisters(REGISTRO **reg, int *length) {
     for(int i = 0; i < *length; i++) {
-        printf("Registro %d: Altura = %.2f, Profundidade = %.2f, Largura = %.2f\n", i+1, reg[i].altura, reg[i].profundidade, reg[i].largura);
+        printf("Registro %d: Altura = %.2f, Profundidade = %.2f, Largura = %.2f\n", i+1, (*reg)[i].altura, (*reg)[i].profundidade, (*reg)[i].largura);
     }
 
 }
