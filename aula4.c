@@ -69,8 +69,8 @@ void listRegisters(REGISTRO reg[], int *length) {
 }
 
 int main() {
-    REGISTRO *reg;
-    int length, opt;
+    REGISTRO *reg = NULL;
+    int length = 0, opt = 0;
 
     while(opt != 5) {
         printf("-------------------------------------------\n");
