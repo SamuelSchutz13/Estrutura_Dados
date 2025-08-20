@@ -8,13 +8,6 @@ typedef struct {
 } REGISTRO;
 
 void createRegister(REGISTRO **reg, int *length) {
-    *reg = realloc(*reg, (*length + 1) * sizeof(REGISTRO));
-
-    if(!*reg) {
-        printf("Erro ao alocar memoria\n");
-        return;
-    }
-
     printf("Altura: ");
     scanf("%f", &(*reg)[*length].altura);
     printf("Profundidade: ");
@@ -22,7 +15,12 @@ void createRegister(REGISTRO **reg, int *length) {
     printf("Largura: ");
     scanf("%f", &(*reg)[*length].largura);
 
-    (*length)++;
+    if(!*reg) {
+        printf("Erro ao alocar memoria\n");
+        return;
+    }
+
+    *reg = realloc(*reg, (*length + 1) * sizeof(REGISTRO));
 }
 
 void editRegister(REGISTRO **reg, int *length) {
