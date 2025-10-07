@@ -21,6 +21,7 @@ void createRegister(REGISTRO **reg, int *length) {
     }
 
     *reg = realloc(*reg, (*length + 1) * sizeof(REGISTRO));
+    (*length)++;
 }
 
 void editRegister(REGISTRO **reg, int *length) {
