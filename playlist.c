@@ -96,14 +96,14 @@ void removeFromBeginning(Playlist *p) {
 }
 
 void removeByTitle(Playlist *p, const char *title) {
-    if(p->start == NULL) {
+	if(p->start == NULL) {
 		printf("Playlist %s esta vazia.\n", p->name);
 		return;
 	}
 
 	Music *current = p->start;
 
-	while(current != NULL && strcmp(current ->title, title) != 0) {
+	while(current  != NULL && strcmp(current ->title, title) != 0) {
 		current = current ->next;
 	}
 
@@ -241,5 +241,6 @@ int main() {
 		}
 	} while(opt != 0);
 
+	
 	return 0;
 }
