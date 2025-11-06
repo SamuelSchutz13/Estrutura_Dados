@@ -7,23 +7,26 @@ typedef struct Lista {
     struct Lista *prox;
 } Lista;
 
-int randomizarNumeros(Lista **inicio, int qntd, int tam) {
-    Lista *novo = (Lista*) malloc(qntd * sizeof(Lista));
-    if (!novo) {
-        printf("Erro ao alocar memoria.\n");
-        return -1;
-    }
+void randomizarNumeros(Lista **inicio, int qntd, int tam) {
+    srand(time(NULL));
+    *inicio = NULL;
 
-    for (int i = 0; i < qntd; i++) {
-        novo[i].numero = rand() % tam;
-        novo[i].prox = (i < qntd - 1) ? &novo[i + 1] : NULL;
-    }
+    for(int i = 0; i < qntd; i++) {
+        Lista *novo = (Lista*) malloc(sizeof(Lista));
 
-    *inicio = novo;
-    return 0;
+        if(!novo) {
+            printf("Erro ao alocar memoria.\n");
+            exit(1);
+        }
+
+        novo->numero = rand() % tam;
+        novo->prox = *inicio;
+        *inicio = novo;
+    }
 
     printf("Quantidade de numeros: %d | Tamanho maximo: %d\n\n", qntd, tam);
 }
+
 
 void imprimirLista(Lista *inicio) {
     Lista *aux = inicio;
@@ -32,37 +35,54 @@ void imprimirLista(Lista *inicio) {
         printf("%d ", aux->numero);
         aux = aux->prox;
     }
-    
+
     printf("\n");
 }
 
-void bubbleSort(Lista *inicio) {
-    if (!inicio) return;
+void medirTempo(void (*funcaoOrdenacao)(Lista *), Lista *inicio, const char *nome) {
+    clock_t inicioTempo, fimTempo;
+    double tempoGasto;
 
-    int trocou;
-    Lista *p1;
-    Lista *p2 = NULL;
+    inicioTempo = clock();
+    funcaoOrdenacao(inicio);
+    fimTempo = clock();
+
+    tempoGasto = ((double)(fimTempo - inicioTempo)) / CLOCKS_PER_SEC;
+
+    printf("%s\n - Lista ordenada:\n", nome);
+    imprimirLista(inicio);
+
+    printf("Tempo gasto: %.6f segundos\n\n", tempoGasto);
+}
+
+
+void bubbleSort(Lista *inicio) {
+    if(!inicio) {
+        printf("Lista vazia, nao ordena.\n");
+        return;
+    }
+
+    int houveTroca;
+    Lista *atual;
+    Lista *ultimo = NULL;
 
     do {
-        trocou = 0;
-        p1 = inicio;
+        houveTroca = 0;
+        atual = inicio;
 
-        while(p1->prox != p2) {
-            if(p1->numero > p1->prox->numero) {
-                int temp = p1->numero;
-                p1->numero = p1->prox->numero;
-                p1->prox->numero = temp;
-                trocou = 1;
+        while(atual->prox != ultimo) {
+            if(atual->numero > atual->prox->numero) {
+                int temp = atual->numero;
+                atual->numero = atual->prox->numero;
+                atual->prox->numero = temp;
+                houveTroca = 1;
             }
 
-            p1 = p1->prox;
+            atual = atual->prox;
         }
 
-        p2 = p1;
-    } while(trocou);
-
-    printf("Numeros ordenados com Bubble Sort:\n");
-    imprimirLista(inicio);
+        ultimo = atual;
+    } while(houveTroca);
 }
 
 int main() {
@@ -79,6 +99,7 @@ int main() {
 
     printf("Numeros gerados: \n");  
     imprimirLista(inicio);
+    printf("\n");
 
     do {
         printf("Escolha uma opcao de ordenacao:\n");
@@ -92,7 +113,7 @@ int main() {
 
         switch(opt) {
         case 1:
-            bubbleSort(inicio);
+            medirTempo(bubbleSort, inicio, "Bubble Sort");
             break;
         case 2:
             printf("Selection Sort selecionado.\n");
@@ -104,12 +125,12 @@ int main() {
             printf("Quick Sort selecionado.\n");
             break;
         case 0:
-            printf("Saindo...\n");
+            printf("Saindo\n");
             break;
         default:
-            printf("Opcao invalida. Tente novamente.\n");
+            printf("Opcao invalida.\n");
         }
-    }  while(opt != 0);
+    } while(opt != 0);
 
     free(inicio);
     return 0;
