@@ -47,14 +47,13 @@ void medirTempo(void (*funcaoOrdenacao)(Lista *), Lista *inicio, const char *nom
     funcaoOrdenacao(inicio);
     fimTempo = clock();
 
-    tempoGasto = ((double)(fimTempo - inicioTempo)) / CLOCKS_PER_SEC;
+    tempoGasto = ((double)(fimTempo - inicioTempo)) /CLOCKS_PER_SEC;
 
     printf("%s\n - Lista ordenada:\n", nome);
     imprimirLista(inicio);
 
     printf("Tempo gasto: %.6f segundos\n\n", tempoGasto);
 }
-
 
 void bubbleSort(Lista *inicio) {
     if(!inicio) {
