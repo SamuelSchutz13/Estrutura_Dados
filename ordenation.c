@@ -47,7 +47,7 @@ void medirTempo(void (*funcaoOrdenacao)(Lista *), Lista *inicio, const char *nom
     funcaoOrdenacao(inicio);
     fimTempo = clock();
 
-    tempoGasto = ((double)(fimTempo - inicioTempo)) /CLOCKS_PER_SEC;
+    tempoGasto = ((double)(fimTempo - inicioTempo)) / CLOCKS_PER_SEC;
 
     printf("%s\n - Lista ordenada:\n", nome);
     imprimirLista(inicio);
