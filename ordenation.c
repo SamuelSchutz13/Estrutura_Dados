@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+
 typedef struct Lista {
     int valor;
     struct Lista *prox;
@@ -25,7 +26,7 @@ void randomizarNumeros(Lista **inicioLista, int quantidade, int tamanhoMax) {
         Lista *novoNo = (Lista*) malloc(sizeof(Lista));
 
         if(!novoNo) {
-            printf("Erro ao alocar memória\n");
+            printf("Erro ao alocar memoria\n");
             exit(1);
         }
 
@@ -34,8 +35,7 @@ void randomizarNumeros(Lista **inicioLista, int quantidade, int tamanhoMax) {
         *inicioLista = novoNo;
     }
 
-    printf("Quantidade de números: %d | Tamanho máximo: %d\n\n", 
-           quantidade, tamanhoMax);
+    printf("Quantidade de numeros: %d | Tamanho maximo: %d\n\n", quantidade, tamanhoMax);
 }
 
 Lista* copiarLista(Lista *inicioLista) {
@@ -93,7 +93,7 @@ void medirTempo(void (*funcaoOrdenacao)(Lista *),
 
 void bubbleSort(Lista *inicioLista) {
     if(!inicioLista) {
-        printf("Lista vazia, não ordena\n");
+        printf("Lista vazia, nao ordena\n");
         return;
     }
 
@@ -122,7 +122,7 @@ void bubbleSort(Lista *inicioLista) {
 
 void selectionSort(Lista *inicioLista) {
     if(!inicioLista) {
-        printf("Lista vazia, não ordena\n");
+        printf("Lista vazia, nao ordena\n");
         return;
     }
 
@@ -146,71 +146,78 @@ void selectionSort(Lista *inicioLista) {
 }
 
 void insertionSort(Lista *inicioLista) {
-    
+    if(!inicioLista) {
+        printf("Lista vazia, nao ordena\n");
+        return;
+    }
 }
 
 void quickSort(Lista *inicioLista) {
- 
+    if(!inicioLista) {
+        printf("Lista vazia, nao ordena\n");
+        return;
+    }
 }
 
 int main() {
     Lista *listaInicial = NULL;
     int opcao, quantidade, tamanhoMax;
 
-    printf("Informe a quantidade de números a serem ordenados: ");
+    printf("Informe a quantidade de numeros a serem ordenados: ");
     scanf("%d", &quantidade);
 
-    printf("Informe o tamanho máximo dos números: ");
+    printf("Informe o tamanho maximo dos numeros: ");
     scanf("%d", &tamanhoMax);
 
     randomizarNumeros(&listaInicial, quantidade, tamanhoMax);
 
-    printf("Números gerados:\n");
+    printf("NNumeros gerados:\n");
     imprimirLista(listaInicial);
 
     do {
         printf("==========================================\n");
-        printf("Escolha uma opção de ordenação:\n");
+        printf("Escolha uma opcao de ordenacao:\n");
         printf("1. Bubble Sort\n");
         printf("2. Selection Sort\n");
         printf("3. Insertion Sort\n");
         printf("4. Quick Sort\n");
         printf("0. Sair\n");
-        printf("Opção: ");
+        printf("Opcao: ");
         scanf("%d", &opcao);
         printf("==========================================\n");
 
         switch(opcao) {
         case 1: {
             Lista *copia = copiarLista(listaInicial);
-            printf("\nLista não ordenada:\n");
+            printf("Lista nao ordenada:\n");
             imprimirLista(listaInicial);
             medirTempo(bubbleSort, copia, "Bubble Sort");
             break;
         }
         case 2: {
             Lista *copia = copiarLista(listaInicial);
-            printf("\nLista não ordenada:\n");
+            printf("Lista nao ordenada:\n");
             imprimirLista(listaInicial);
             medirTempo(selectionSort, copia, "Selection Sort");
             break;
         }
         case 3:
-            printf("Lista não ordenada:\n");
+            //Lista *copia = copiarLista(listaInicial);
+            printf("Lista nao ordenada:\n");
             imprimirLista(listaInicial);
+            //medirTempo(insertionSort, copia, "Insertion Sort");
             break;
-
         case 4:
-            printf("Lista não ordenada:\n");
+            //Lista *copia = copiarLista(listaInicial);
+            printf("Lista nao ordenada:\n");
             imprimirLista(listaInicial);
+            //medirTempo(quickSort, copia, "Quick Sort");
             break;
-
         case 0:
-            printf("Saindo...\n");
+            printf("Saindo do sistema\n");
             break;
-
         default:
-            printf("Opção inválida!\n");
+            printf("Opcao invalida!\n");
         }
 
     } while(opcao != 0);
