@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-
 typedef struct Lista {
     int valor;
     struct Lista *prox;
@@ -21,7 +20,7 @@ void liberarLista(Lista *inicioLista) {
 void randomizarNumeros(Lista **inicioLista, int quantidade, int tamanhoMax) {
     srand(time(NULL));
     *inicioLista = NULL;
-
+    
     for(int i = 0; i < quantidade; i++) {
         Lista *novoNo = (Lista*) malloc(sizeof(Lista));
 
@@ -39,10 +38,7 @@ void randomizarNumeros(Lista **inicioLista, int quantidade, int tamanhoMax) {
 }
 
 Lista* copiarLista(Lista *inicioLista) {
-    if(!inicioLista) {
-        return NULL;
-    }
-
+    if(!inicioLista) return NULL;
     Lista *novaLista = NULL, *fimLista = NULL;
 
     while(inicioLista) {
@@ -71,14 +67,10 @@ void imprimirLista(Lista *inicioLista) {
         printf("%d ", noAtual->valor);
         noAtual = noAtual->prox;
     }
-
     printf("\n");
 }
 
-void medirTempo(void (*funcaoOrdenacao)(Lista *),
-    Lista *inicioLista,
-    const char *nomeAlgoritmo) {
-
+void medirTempo(void (*funcaoOrdenacao)(Lista *), Lista *inicioLista, const char *nomeAlgoritmo) {
     clock_t tempoInicio = clock();
     funcaoOrdenacao(inicioLista);
     clock_t tempoFim = clock();
@@ -86,6 +78,7 @@ void medirTempo(void (*funcaoOrdenacao)(Lista *),
     double tempoGasto = ((double)(tempoFim - tempoInicio)) / CLOCKS_PER_SEC;
 
     printf("\n%s - Lista ordenada:\n", nomeAlgoritmo);
+
     imprimirLista(inicioLista);
 
     printf("Tempo gasto: %.6f segundos\n", tempoGasto);
@@ -117,75 +110,31 @@ void bubbleSort(Lista *inicioLista) {
         }
 
         ultimoNo = noAtual;
+
     } while(houveTroca);
-}
-
-void selectionSort(Lista *inicioLista) {
-    if(!inicioLista) {
-        printf("Lista vazia, nao ordena\n");
-        return;
-    }
-
-    Lista *i, *j, *minimo;
-
-    for(i = inicioLista; i != NULL; i = i->prox) {
-        minimo = i;
-
-        for(j = i->prox; j != NULL; j = j->prox) {
-            if(j->valor < minimo->valor) {
-                minimo = j;
-            }
-        }
-
-        if(minimo != i) {
-            int temp = i->valor;
-            i->valor = minimo->valor;
-            minimo->valor = temp;
-        }
-    }
-}
-
-void insertionSort(Lista *inicioLista) {
-    if(!inicioLista) {
-        printf("Lista vazia, nao ordena\n");
-        return;
-    }
-}
-
-void quickSort(Lista *inicioLista) {
-    if(!inicioLista) {
-        printf("Lista vazia, nao ordena\n");
-        return;
-    }
 }
 
 int main() {
     Lista *listaInicial = NULL;
     int opcao, quantidade, tamanhoMax;
-
     printf("Informe a quantidade de numeros a serem ordenados: ");
     scanf("%d", &quantidade);
-
     printf("Informe o tamanho maximo dos numeros: ");
     scanf("%d", &tamanhoMax);
-
     randomizarNumeros(&listaInicial, quantidade, tamanhoMax);
-
-    printf("NNumeros gerados:\n");
+    printf("Numeros gerados:\n");
     imprimirLista(listaInicial);
-
     do {
         printf("==========================================\n");
         printf("Escolha uma opcao de ordenacao:\n");
         printf("1. Bubble Sort\n");
-        printf("2. Selection Sort\n");
+        printf("2. Merge Sort\n");
         printf("3. Insertion Sort\n");
         printf("4. Quick Sort\n");
         printf("0. Sair\n");
         printf("Opcao: ");
         scanf("%d", &opcao);
         printf("==========================================\n");
-
         switch(opcao) {
         case 1: {
             Lista *copia = copiarLista(listaInicial);
@@ -195,18 +144,19 @@ int main() {
             break;
         }
         case 2: {
-            Lista *copia = copiarLista(listaInicial);
-            printf("Lista nao ordenada:\n");
-            imprimirLista(listaInicial);
-            medirTempo(selectionSort, copia, "Selection Sort");
-            break;
-        }
-        case 3:
             //Lista *copia = copiarLista(listaInicial);
             printf("Lista nao ordenada:\n");
             imprimirLista(listaInicial);
-            //medirTempo(insertionSort, copia, "Insertion Sort");
+            //medirTempo(mergeSort, copia, "Merge Sort");
             break;
+        }
+        case 3: {
+            Lista *copia = copiarLista(listaInicial);
+            printf("Lista nao ordenada:\n");
+            imprimirLista(listaInicial);
+            medirTempo(insertionSort, copia, "Insertion Sort");
+            break;
+        }
         case 4:
             //Lista *copia = copiarLista(listaInicial);
             printf("Lista nao ordenada:\n");
