@@ -28,12 +28,12 @@ void randomizarNumeros(Lista **inicioLista, int quantidade, int tamanhoMaximo) {
     for (int i = 0; i < quantidade; i++) {
         Lista *novoNo = (Lista*) malloc(sizeof(Lista));
         
-        if (!novoNo) {
+        if(!novoNo) {
             printf("Erro ao alocar memoria\n");
             exit(1);
         }
         
-        novoNo->valor = rand() % tamanhoMaximo;
+        novoNo->valor = rand() % tamanhoMaximo; // Gera um número aleatório e armazena ele
         novoNo->proximo = *inicioLista;
         *inicioLista = novoNo;
     }
