@@ -53,9 +53,9 @@ Lista* copiarLista(Lista *inicioLista) {
 
     // Percorre a lista original e cria nós nessa lista nova
     while(inicioLista) {
-        Lista *novoNo = (Lista*) malloc(sizeof(Lista));
-        novoNo->valor = inicioLista->valor;
-        novoNo->proximo = NULL;
+        Lista *novoNo = (Lista*) malloc(sizeof(Lista)); // Aloca o novo nó
+        novoNo->valor = inicioLista->valor; // Copia o valor do nó
+        novoNo->proximo = NULL; 
 
         if(!novaLista) {
             novaLista = novoNo;
@@ -106,6 +106,7 @@ void medirTempo(void (*funcaoOrdenacao)(Lista **), Lista *listaCopia, const char
 // Função Bubble Sort
 void bubbleSort(Lista **inicioLista) {
     Lista *inicio = *inicioLista;
+    
     if (!inicio) {
         printf("Lista vazia, não ordena");
         return;
@@ -113,7 +114,7 @@ void bubbleSort(Lista **inicioLista) {
 
     int houveTroca;
     Lista *noAtual;
-    Lista *ultimoNo = NULL;
+    Lista *ultimoNo = NULL; // Marca o fim já ordenado
 
     // Realiza as passagens pela lista até que não há mais trocas
     do {
@@ -138,14 +139,16 @@ void bubbleSort(Lista **inicioLista) {
 
 // Função Insertion Sort
 void insertionSort(Lista **inicioLista) {
-    Lista *ordenada = NULL;
-    Lista *atual = *inicioLista;
+    Lista *ordenada = NULL; // Lista ordenada
+    Lista *atual = *inicioLista; // Nó atual da lista original
 
     // Insere o nó da lista original na lista ordenada
     while(atual) {
-        Lista *proximo = atual->proximo;
+        Lista *proximo = atual->proximo; // Guarda o próximo para prosseguir o loop
         
+        // Caso 1 -insere no começo da lista ordenada
         if(!ordenada || atual->valor < ordenada->valor) {
+            // Busca local adequado para inserir
             atual->proximo = ordenada;
             ordenada = atual;
         } else {
@@ -157,13 +160,15 @@ void insertionSort(Lista **inicioLista) {
             atual->proximo = temporario->proximo;
             temporario->proximo = atual;
         }
-        atual = proximo;
+        
+        atual = proximo; // Vai para o próximo elemento da lista original
     }
 
     *inicioLista = ordenada; // Atualiza a lista original
 }
 
 // Funções auxiliares Merge Sort (Dividir e Mesclar)
+// Divide a lista no meio usando ponteiro 
 Lista* dividir(Lista *inicio) {
     Lista *rapido = inicio->proximo;
     Lista *lento = inicio;
@@ -171,11 +176,11 @@ Lista* dividir(Lista *inicio) {
     // Usa 2 ponteiros para achar o meio da lista
     while(rapido && rapido->proximo) {
         rapido = rapido->proximo->proximo;
-        lento = lento->proximo;
+        lento = lento->proximo; 
     }
     
     Lista *metade = lento->proximo;
-    lento->proximo = NULL;
+    lento->proximo = NULL; // Corta a lista no meio
     
     return metade;
 }
@@ -186,7 +191,7 @@ Lista* mesclar(Lista *a, Lista *b) {
     
     Lista *resultado = NULL;
     
-    // Mescla as 2 listas já ordenadas
+    // Mescla as 2 listas já ordenadas escolhendo o menor elemento entre a e b
     if(a->valor < b->valor) {
         resultado = a;
         resultado->proximo = mesclar(a->proximo, b);
@@ -203,7 +208,7 @@ Lista* mesclar(Lista *a, Lista *b) {
 void mergeSort(Lista **inicioLista) {
     if(!*inicioLista || !(*inicioLista)->proximo) return;
 
-    Lista *metade = dividir(*inicioLista);
+    Lista *metade = dividir(*inicioLista); // Separa lista
     mergeSort(inicioLista); // Ordena primeira metade
     mergeSort(&metade); // Ordena segunda metade
 
@@ -236,6 +241,8 @@ void particao(Lista *inicio, Lista **menores, Lista **pivo, Lista **maiores) {
     (*pivo)->proximo = NULL; // O pivo fica isolado
 }
 
+
+// Junta menores, pivo e maiores
 Lista* concatenar(Lista *menores, Lista *pivo, Lista *maiores) {
     if (!menores) {
         pivo->proximo = maiores;
